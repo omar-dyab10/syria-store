@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\DynamicAttribute;
+use App\Models\RealEstate;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            LocationSeeder::class,
+            RolesAndPermissionsSeeder::class,
+            UserSeeder::class,
+            CategorySeeder::class,
+            VehicleSeeder::class,
+            RentalSeeder::class,
+            RealEstateSeeder::class,
+            JobOpportunitySeeder::class,
+            ProductSeeder::class,
+            DynamicAttributeSeeder::class,
+            DynamicAttributeValueSeeder::class,
         ]);
     }
 }

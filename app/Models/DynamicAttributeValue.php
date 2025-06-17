@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class DynamicAttributeValue extends Model
 {
     protected $fillable = ['dynamic_attribute_id', 'value_en', 'value_ar', 'entity_id', 'entity_type'];
-
-    public function dynamicAttribute()
+    public function attribute()
     {
-        return $this->belongsTo(DynamicAttribute::class);
+        return $this->belongsTo(DynamicAttribute::class, 'dynamic_attribute_id');
     }
     public function entity()
     {

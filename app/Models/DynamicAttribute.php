@@ -12,9 +12,9 @@ class DynamicAttribute extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public function dynamicAttributeValues()
+    public function values()
     {
-        return $this->hasMany(DynamicAttributeValue::class);
+        return $this->hasMany(DynamicAttributeValue::class,'dynamic_attribute_id');
     }
 
 }

@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -26,11 +28,17 @@ class User extends Authenticatable
         'national_number'
     ];
 
-    public function advertisements(){
+    public function advertisements()
+    {
         return $this->hasMany(Advertisement::class);
     }
-    public function favorites(){
-        return $this->hasMany(Favorite::class);
+    public function favorites()
+    {
+        return $this->belongsToMany(Advertisement::class, 'favorites')->withTimestamps();
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
     /**
      * The attributes that should be hidden for serialization.

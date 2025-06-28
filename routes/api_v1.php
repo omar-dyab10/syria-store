@@ -17,8 +17,8 @@ Route::post('/register', [AuthApiController::class, 'register']);
 Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/logout', [AuthApiController::class, 'logout'])->middleware('auth:sanctum');
 
-Route::get('/auth/google', [AuthApiController::class,"google"])->name('auth.google');
-Route::get('/auth/google/callback', [AuthApiController::class,"googleCallback"])->name('auth.google.callback');
+Route::get('/auth/google', [AuthApiController::class, "google"])->name('auth.google');
+Route::get('/auth/google/callback', [AuthApiController::class, "googleCallback"])->name('auth.google.callback');
 
 // Super Admin
 Route::middleware(['auth:sanctum', 'role:super-admin'])->prefix('super-admin/')->as('super-admin.')->group(function () {
@@ -33,6 +33,8 @@ Route::middleware(['auth:sanctum', 'role:super-admin'])->prefix('super-admin/')-
     Route::get('advertisementsReject', [AdvertisementController::class, 'advertisementsReject']);
 });
 Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin/')->as('admin.')->group(function () {
+    Route::apiResource('dynamic-attributes', DynamicAttributeController::class);
+    Route::apiResource('categories', CategoryController::class);
     Route::get('advertisements', [AdvertisementController::class, 'advertisementsPending']);
     Route::get('advertisements/{advertisement}/approve', [AdvertisementController::class, 'approve']);
     Route::get('advertisements/{advertisement}/show', [AdvertisementController::class, 'show']);

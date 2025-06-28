@@ -7,6 +7,7 @@ use App\Http\Resources\Api\V1\AdvertisementResource;
 use App\Http\Resources\Api\V1\CategoryResource;
 use App\Models\Advertisement;
 use App\Models\Category;
+use App\Models\RealEstate;
 use Illuminate\Http\Request;
 
 class AdvertisementController extends Controller
@@ -22,6 +23,13 @@ class AdvertisementController extends Controller
     public function approve(Advertisement $advertisement)
     {
         $advertisement->update(['status' => 'confirmed']);
+        RealEstate::create([
+            'user_id' => $advertisement->user_id,
+            'title' => $advertisement->title,
+            'description' => $advertisement->description,
+            'price' => $advertisement->price,
+            'status' => 'available',
+        ]);
         return response()->json([
             'message' => 'Advertisement approved successfully',
             'advertisement' => new AdvertisementResource($advertisement),

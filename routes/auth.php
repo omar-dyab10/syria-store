@@ -57,3 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+
+Route::get('/auth/google', [AuthenticatedSessionController::class,"google"])->name('auth.google');
+
+Route::get('/auth/google/callback', [AuthenticatedSessionController::class,"googleCallback"])->name('auth.google.callback');

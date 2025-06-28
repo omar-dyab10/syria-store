@@ -24,7 +24,7 @@ class JobOpportunityFactory extends Factory
             'required_skills' => json_encode($this->faker->words(5)),
             'company' => $this->faker->company(),
             'deadline' => $this->faker->dateTimeBetween('now', '+1 year'),
-            'description' => $this->faker->paragraph(),
+            'description' => $this->faker->words(100),
         ];
     }
 }

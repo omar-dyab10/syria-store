@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             VehicleSeeder::class,
             RentalSeeder::class,
             RealEstateSeeder::class,
-            JobOpportunitySeeder::class,
+            // JobOpportunitySeeder::class,
             ProductSeeder::class,
             DynamicAttributeSeeder::class,
             DynamicAttributeValueSeeder::class,

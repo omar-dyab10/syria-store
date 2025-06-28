@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthApiController extends Controller
 {
@@ -59,5 +61,47 @@ class AuthApiController extends Controller
         return response()->json([
             'message' => 'Logout successful'
         ], 200);
+    }
+    public function google()
+    {
+        $url = Socialite::driver('google')
+            ->stateless()
+            ->redirect()
+            ->getTargetUrl();
+
+        return response()->json([
+            'login_url' => $url
+        ]);
+    }
+    public function googleCallback(Request $request)
+    {
+            $googleUser = Socialite::driver('google')->stateless()->user();
+
+            $fullName = $googleUser->getName();
+            $nameParts = explode(' ', $fullName, 2);
+            $firstName = $nameParts[0] ?? '';
+            $lastName = $nameParts[1] ?? '';
+
+            $user = User::updateOrCreate(
+                ['email' => $googleUser->getEmail()],
+                [
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'provider_id' => $googleUser->getId(),
+                    'password' => bcrypt(Str::random(24)),
+                    'provider_token' => $googleUser->token,
+                    'provider_refresh_token' => $googleUser->refreshToken,
+                ]
+            );
+
+            return response()->json([
+                'message' => 'Login successful',
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->first_name . ' ' . $user->last_name,
+                    'email' => $user->email
+                ],
+                'token' => $user->createToken('auth_token')->plainTextToken
+            ], 200);
     }
 }

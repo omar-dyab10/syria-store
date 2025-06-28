@@ -1,47 +1,69 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابي - Syrian Store</title>
+    <link rel="stylesheet" href="{{ asset('assets/account-style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+<body>
+    <div class="main-container">
+        <div class="form-container" id="loginForm">
+            <div class="form-card">
+                <div class="form-image">
+                    <img src="{{ asset('assets/image/Frame 2671.png') }}" alt="تسجيل الدخول">
+                </div>
+                <div class="form-content">
+                    <h2>تسجيل الدخول</h2>
+                    <p class="form-subtitle">لا تملك حساباً؟ <a href="#">إنشاء حساب</a></p>
+
+                    <form class="login-form" action="{{ route('login') }}" method="POST">
+                        @csrf
+                        <div class="input-group">
+                            <label for="loginEmail">البريد الإلكتروني</label>
+                            <input type="email" id="loginEmail" placeholder="myhab77@gmail.com" name="email" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="loginPassword">كلمة المرور</label>
+                            <input type="password" id="loginPassword" placeholder="••••••••••••" name="password" required>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="rememberMe" name="terms">
+                                <span class="checkmark"></span>
+                                أوافق على الشروط والأحكام
+                            </label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">تسجيل الدخول</button>
+
+                        <div class="divider">
+                            <span>أو</span>
+                        </div>
+
+                    </form>
+                    <div class="social-login">
+                        <button type="button" class="social-btn twitter-btn">
+                            <img class="social-icon" src="{{ asset('assets/image/Vector.svg') }}" alt="">
+                        </button>
+                        <form action="{{ route('auth.google') }}">
+                            @csrf
+                            <button type="submit" class="social-btn google-btn">
+                                <img class="social-icon" src="{{ asset('assets/image/devicon_google.svg') }}"
+                                    alt="">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+</body>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>

@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Api\V1\superAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\AdvertisementResource;
-use App\Http\Resources\Api\V1\CategoryResource;
 use App\Models\Advertisement;
-use App\Models\Category;
 use App\Models\RealEstate;
 use Illuminate\Http\Request;
 

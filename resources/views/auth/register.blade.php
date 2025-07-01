@@ -78,11 +78,11 @@
                         <span>أو</span>
                     </div>
 
+                </form>
                     <div class="social-login">
                         <button type="submit" class="social-btn twitter-btn">
                             <img class="social-icon" src="{{ asset('assets/image/Vector.svg') }}" alt="">
                         </button>
-                </form>
                 <form action="{{ route('auth.google') }}">
                     @csrf
                     <button type="submit" class="social-btn google-btn">

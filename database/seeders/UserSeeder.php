@@ -23,6 +23,9 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'remember_token' => \Illuminate\Support\Str::random(10)
         ])->assignRole('super-admin');
-        User::factory()->count(20)->create();
+        $users = User::factory()->count(20)->create();
+        foreach ($users as $user) {
+            $user->assignRole('user');
+        }
     }
 }

@@ -38,12 +38,12 @@ class CategorySeeder extends Seeder
                 'Trucks' => 'شاحنات',
             ],
             'Real Estate' => [
-                'Apartments for Sale' => 'شقق للبيع',
-                'Apartments for Rent' => 'شقق للإيجار',
-                'Villas for Sale' => 'فلل للبيع',
-                'Villas for Rent' => 'فلل للإيجار',
-                'Commercial Properties' => 'عقارات تجارية',
-                'Land' => 'أراضي',
+                'apartment' => 'شقة',
+                'villa' => 'فيلا',
+                'land' => 'أرض',
+                'Workplace' => 'مكان العمل',
+                'Building' => 'مبنى',
+                'Tourist Facility' => 'مرفق سياحي',
             ],
             'Rental' => [],
             'Jobs' => [

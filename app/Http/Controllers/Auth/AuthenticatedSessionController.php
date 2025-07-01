@@ -27,10 +27,10 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('dashboard', absolute: false));
+        if (Auth::user()->hasRole('super-admin')) {
+            return redirect()->intended(route('admin.dashboard', absolute: false));
+        }
+        return redirect()->intended(route('welcome', absolute: false));
     }
 
     /**
@@ -56,7 +56,7 @@ class AuthenticatedSessionController extends Controller
 
         $googleUser = Socialite::driver('google')->stateless()->user();
         $fullName = $googleUser->getName();
-        $nameParts = explode(' ', $fullName, 2); 
+        $nameParts = explode(' ', $fullName, 2);
         $firstName = $nameParts[0] ?? '';
         $lastName = $nameParts[1] ?? '';
 
